@@ -8,8 +8,9 @@ require('dotenv').config();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 👉 เมื่อผู้ใช้เข้าหน้าแรก จะโหลด login.html
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/login.html');
+  res.sendFile(path.join(__dirname, 'public/login.html'));
 });
 
 mongoose.connect(process.env.MONGO_URI, {
