@@ -1,29 +1,21 @@
-
 const express = require('express');
+const session = require('express-session');
 const mongoose = require('mongoose');
 const path = require('path');
-const app = express();
 require('dotenv').config();
 
-app.use(express.json());
+const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 
-// 👉 เมื่อผู้ใช้เข้าหน้าแรก จะโหลด login.html
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/login.html'));
-});
+const User = require('./backend/models/User');
+const Product = require('./backend/models/Product');
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => console.log('MongoDB connected'))
-  .catch(err => console.error(err));
+mongoose.connect(process.env.MONGO_URI).then(() => console.log('MongoDB connected'));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// register/login/logout routes here...
+// admin update product route...
+// get products, buy product, history route...
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+app.listen(3000, () => console.log('Server started on port 3000'));
