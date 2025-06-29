@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Shop</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    function toggleDrawer() {
+      document.getElementById('drawer').classList.toggle('show');
+    }
+  </script>
+</head>
+<body>
+  <div class="menu-icon" onclick="toggleDrawer()">☰</div>
+  <nav class="drawer" id="drawer">
+    <a href="shop.html">หน้าหลัก</a>
+    <a href="history.html">ประวัติการซื้อ</a>
+    <a href="contact.html">ติดต่อ</a>
+    <a href="/logout">ล็อคเอ้า</a>
+    <a href="admin.html" class="admin-only">หลังบ้าน</a>
+  </nav>
+  <div class="product-list" id="products">Loading...</div>
+  <footer>&copy; 2020 TawEarth</footer>
+  <script>
+    fetch('/products').then(res => res.json()).then(data => {
+      document.getElementById('products').innerHTML = data.map(p => `
+        <div class="product">
+          <img src="${p.image}" alt="${p.name}" />
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <p>สต๊อก: ${p.stock}</p>
+          <p>${p.price} Point</p>
+          <form action="/buy" method="POST">
+            <input type="hidden" name="productId" value="${p._id}" />
+            <button type="submit">ซื้อสินค้า</button>
+          </form>
+        </div>`).join('')
+    });
+  </script>
+</body>
+</html>

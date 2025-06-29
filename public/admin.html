@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="center-box">
+    <h2>Admin Panel</h2>
+    <form action="/admin/update" method="POST">
+      <input type="text" name="productId" placeholder="Product ID">
+      <input type="text" name="name" placeholder="Name">
+      <textarea name="description" placeholder="Description"></textarea>
+      <input type="number" name="price" placeholder="Price">
+      <input type="number" name="stock" placeholder="Stock">
+      <input type="text" name="image" placeholder="Image URL">
+      <button type="submit">อัปเดตสินค้า</button>
+    </form>
+  </div>
+</body>
+</html>

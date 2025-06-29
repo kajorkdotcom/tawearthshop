@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>History</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="center-box">
+    <h2>ประวัติการซื้อ</h2>
+    <div id="history-list">Loading...</div>
+  </div>
+  <script>
+    fetch('/history').then(res => res.json()).then(data => {
+      document.getElementById('history-list').innerHTML = data.map(i => `<p>${i.date}: ${i.item} - ${i.price} point</p>`).join('')
+    });
+  </script>
+</body>
+</html>
